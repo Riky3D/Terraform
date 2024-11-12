@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+  build:
+    commands:
+      - pip install -r requirements.txt -t .
+      - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket rikesh-estiotest
+  post_build:
+    commands:
+      - echo "Build and packaging completed successfully."
+artifacts:
+  files:
+    - template.yml
+    - template-out.yml
